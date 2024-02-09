@@ -1,0 +1,44 @@
+[debug] [2024-02-09T03:08:37.120Z] ----------------------------------------------------------------------
+[debug] [2024-02-09T03:08:37.121Z] Command:       /usr/local/bin/firebase /Users/omerlatif/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase deploy
+[debug] [2024-02-09T03:08:37.122Z] CLI Version:   11.24.1
+[debug] [2024-02-09T03:08:37.122Z] Platform:      darwin
+[debug] [2024-02-09T03:08:37.122Z] Node Version:  v16.16.0
+[debug] [2024-02-09T03:08:37.127Z] Time:          Thu Feb 08 2024 22:08:37 GMT-0500 (Eastern Standard Time)
+[debug] [2024-02-09T03:08:37.128Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-09T03:08:37.216Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-09T03:08:37.216Z] > authorizing via signed-in user (olatif04@gmail.com)
+[debug] [2024-02-09T03:08:37.217Z] [iam] checking project elementify-2378a for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-02-09T03:08:37.219Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/elementify-2378a:testIamPermissions [none]
+[debug] [2024-02-09T03:08:37.220Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/elementify-2378a:testIamPermissions x-goog-quota-user=projects/elementify-2378a
+[debug] [2024-02-09T03:08:37.220Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/elementify-2378a:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-02-09T03:08:37.504Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/elementify-2378a:testIamPermissions 200
+[debug] [2024-02-09T03:08:37.507Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/elementify-2378a:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-02-09T03:08:37.509Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/elementify-2378a/serviceAccounts/elementify-2378a@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-02-09T03:08:37.511Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/elementify-2378a/serviceAccounts/elementify-2378a@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-02-09T03:08:37.791Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/elementify-2378a/serviceAccounts/elementify-2378a@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-02-09T03:08:37.793Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/elementify-2378a/serviceAccounts/elementify-2378a@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-02-09T03:08:37.795Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a [none]
+[debug] [2024-02-09T03:08:38.033Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a 200
+[debug] [2024-02-09T03:08:38.033Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a {"projectId":"elementify-2378a","projectNumber":"841393751186","displayName":"Elementify","name":"projects/elementify-2378a","resources":{"hostingSite":"elementify-2378a"},"state":"ACTIVE","etag":"1_0d225bfe-88db-44dd-8d98-d9eddd5f66f6"}
+[info] 
+[info] === Deploying to 'elementify-2378a'...
+[info] 
+[info] i  deploying functions, hosting 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2024-02-09T03:08:40.744Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a [none]
+[debug] [2024-02-09T03:08:41.118Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a 200
+[debug] [2024-02-09T03:08:41.119Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a {"projectId":"elementify-2378a","projectNumber":"841393751186","displayName":"Elementify","name":"projects/elementify-2378a","resources":{"hostingSite":"elementify-2378a"},"state":"ACTIVE","etag":"1_0d225bfe-88db-44dd-8d98-d9eddd5f66f6"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-02-09T03:08:41.124Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-02-09T03:08:41.124Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/elementify-2378a
+[debug] [2024-02-09T03:08:41.127Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-02-09T03:08:41.127Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/elementify-2378a
+[debug] [2024-02-09T03:08:41.128Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudbuild.googleapis.com [none]
+[debug] [2024-02-09T03:08:41.132Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudbuild.googleapis.com x-goog-quota-user=projects/elementify-2378a
+[debug] [2024-02-09T03:08:41.135Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com [none]
+[debug] [2024-02-09T03:08:41.135Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com x-goog-quota-user=projects/elementify-2378a
