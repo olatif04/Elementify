@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 function Home() {
     
     //const history = useHistory();//for routing easily
@@ -18,6 +19,21 @@ function Home() {
       //redirect to home page
       window.location.href = '/';
     };
+    const fetchUserTopTracks = async () => {
+      try {
+        const { data } = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        });
+        console.log(data); // Your top tracks will be logged in the console.
+        // Process and use data in your app
+      } catch (error) {
+        console.error('Error fetching top tracks:', error);
+        // Handle errors, e.g., token expiration
+      }
+    };
+    
     
 
   return (
@@ -27,7 +43,7 @@ function Home() {
         <button className='button' onClick={handleSpotifyLogin}>Log In With Spotify</button>
         {isLoggedIn && <p className="logged-in-text">Logged In</p>}
         {isLoggedIn && <button onClick={handleLogout}>Log Out</button>}
-
+        {isLoggedIn && <button onClick={fetchUserTopTracks}>Get info</button>}
       </header>
 
     </div>
