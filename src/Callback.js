@@ -1,46 +1,55 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; //npm install axios
+import axios from 'axios';
 
 const Callback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const exchangeCodeForToken = async (code) => {
+      console.log('Starting exchange code for token with code:', code); // Log the authorization code
+      try {
+        const functionEndpoint = 'https://us-central1-elementify-2378a.cloudfunctions.net/exchangeSpotifyCode';
+        console.log('Making POST request to function endpoint:', functionEndpoint); // Log the endpoint
+        const response = await axios.post(functionEndpoint, { code });
+        console.log('Response from function:', response); // Log the response
+        const { accessToken } = response.data;
+        console.log('Received access token:', accessToken); // Log the access token
+        
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('isLoggedIn', 'true'); // Indicate user is logged in
+        console.log('User logged in, navigating to home page'); // Log navigation
+        navigate('/'); // Navigate to home page after successful exchange
+      } catch (error) {
+        console.error('Error exchanging code for token:', error); // Log any errors
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(error.response.data);
+          console.error(error.response.status);
+          console.error(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error', error.message);
+        }
+        navigate('/'); // Consider navigating to an error page or showing an error message
+      }
+    };
+
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get('code');
-
+    console.log('URL search params:', searchParams.toString()); // Log the full query string
     if (code) {
+      console.log('Authorization code found in URL:', code); // Log the found code
       exchangeCodeForToken(code);
     } else {
-      navigate('https://google.com'); // Redirect to home if no code is found
+      console.log('No authorization code found in URL, navigating to home'); // Log the absence of code
+      navigate('/'); // No code present, navigate home or to an error page
     }
   }, [navigate]);
-
-  const exchangeCodeForToken = async (code) => {
-    try {
-      // This assumes you have set up a Firebase Cloud Function named 'exchangeSpotifyCode'
-      // and it is deployed, providing you an endpoint to handle the code exchange securely
-      const functionEndpoint = 'https://us-central1-elementify-2378a.cloudfunctions.net/exchangeSpotifyCode';
-
-      // Make a POST request to your Firebase Cloud Function endpoint with the code
-      const response = await axios.post(functionEndpoint, { code });
-
-      // Here, we're assuming the cloud function responds with an object that includes the access token
-      const { accessToken } = response.data;
-
-      // Store the access token in local storage, state management, or context (not shown here)
-      // For example:
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('isLoggedIn', 'true');
-
-      // Redirect to home or another page upon successful login
-      navigate('/');
-    } catch (error) {
-      console.error('Error exchanging code for token:', error);
-      // Handle any errors, such as showing a message to the user
-      navigate('https://openai.com'); // Redirect to home on error
-    }
-  };
 
   return <div>Loading...</div>;
 };
