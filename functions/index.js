@@ -37,12 +37,12 @@ exports.exchangeSpotifyCode = functions.https.onRequest((request, response) => {
   });
 });
 exports.refreshSpotifyToken = functions.https.onRequest(async (request, response) => {
-    cors(request, response, async () => {
-      const { refreshToken } = request.body;
-      const spotifyConfig = functions.config().spotify;
-  
-      try {
-        const tokenResponse = await axios.post(
+  cors(request, response, async () => {
+    const {refreshToken} = request.body;
+    const spotifyConfig = functions.config().spotify;
+
+    try {
+      const tokenResponse = await axios.post(
           "https://accounts.spotify.com/api/token",
           new URLSearchParams({
             grant_type: "refresh_token",
@@ -53,17 +53,17 @@ exports.refreshSpotifyToken = functions.https.onRequest(async (request, response
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
             },
-          }
-        );
-  
-        response.json({
-          accessToken: tokenResponse.data.access_token,
-          expiresIn: tokenResponse.data.expires_in,
-        });
-      } catch (error) {
-        console.error("Error refreshing Spotify token:", error.response || error);
-        response.status(500).send("Internal Server Error");
-      }
-    });
+          },
+      );
+
+      response.json({
+        accessToken: tokenResponse.data.access_token,
+        expiresIn: tokenResponse.data.expires_in,
+      });
+    } catch (error) {
+      console.error("Error refreshing Spotify token:", error.response || error);
+      response.status(500).send("Internal Server Error");
+    }
   });
-  
+});
+
