@@ -9,8 +9,8 @@ exports.exchangeSpotifyCode = functions.https.onRequest(async (request, response
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: 'https://elementify-2378a.web.app/callback',
-      client_id: 'bb8e4bc87a76404db6a9c2e420474ea1',
-      client_secret: '69cf708184504f1ca76465d041592e3d',
+      client_id: spotifyConfig.client_id,
+    client_secret: spotifyConfig.client_secret,
     }), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
