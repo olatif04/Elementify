@@ -79,7 +79,7 @@ function Home() {
             <button className='button' onClick={handleSpotifyLogin}>Log In With Spotify</button>
             {isLoggedIn && <p className="logged-in-text">Logged In</p>}
             {isLoggedIn && <button onClick={handleLogout}>Log Out</button>}
-            {isLoggedIn && <button onClick={fetchUserTopTracks}>Get info</button>}
+            {isLoggedIn && <button onClick={fetchUserTopTracks}>Get Top Tracks</button>}
             {/* Render the list of top tracks */}
             {isLoggedIn && topTracks.length > 0 && (
               <ul>
