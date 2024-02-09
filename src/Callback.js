@@ -20,7 +20,7 @@ const Callback = () => {
     try {
       // This assumes you have set up a Firebase Cloud Function named 'exchangeSpotifyCode'
       // and it is deployed, providing you an endpoint to handle the code exchange securely
-      const functionEndpoint = 'https://us-central1-your-firebase-project-id.cloudfunctions.net/exchangeSpotifyCode';
+      const functionEndpoint = 'https://us-central1-elementify-2378a.cloudfunctions.net/exchangeSpotifyCode';
 
       // Make a POST request to your Firebase Cloud Function endpoint with the code
       const response = await axios.post(functionEndpoint, { code });
@@ -31,6 +31,7 @@ const Callback = () => {
       // Store the access token in local storage, state management, or context (not shown here)
       // For example:
       localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('isLoggedIn', 'true');
 
       // Redirect to home or another page upon successful login
       navigate('/');
