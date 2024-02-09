@@ -1,19 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Home'; // Import Home from the same directory
-import './App.css';
+import Home from './Home';
+import Callback from './Callback'; // Import the Callback component
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          {/* Route for Home component as the default page */}
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/callback" element={<Callback />} />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;
