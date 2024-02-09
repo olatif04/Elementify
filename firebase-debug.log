@@ -42,3 +42,73 @@
 [debug] [2024-02-09T03:08:41.132Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudbuild.googleapis.com x-goog-quota-user=projects/elementify-2378a
 [debug] [2024-02-09T03:08:41.135Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com [none]
 [debug] [2024-02-09T03:08:41.135Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com x-goog-quota-user=projects/elementify-2378a
+[debug] [2024-02-09T03:08:41.536Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudbuild.googleapis.com 200
+[debug] [2024-02-09T03:08:41.537Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudbuild.googleapis.com [omitted]
+[info] ✔  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-02-09T03:08:41.538Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com 200
+[debug] [2024-02-09T03:08:41.538Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/artifactregistry.googleapis.com [omitted]
+[info] ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-02-09T03:08:41.538Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/runtimeconfig.googleapis.com 200
+[debug] [2024-02-09T03:08:41.539Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-02-09T03:08:41.539Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudfunctions.googleapis.com 200
+[debug] [2024-02-09T03:08:41.540Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/elementify-2378a/services/cloudfunctions.googleapis.com [omitted]
+[info] ✔  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-02-09T03:08:41.541Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a/adminSdkConfig [none]
+[debug] [2024-02-09T03:08:41.826Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a/adminSdkConfig 200
+[debug] [2024-02-09T03:08:41.826Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/elementify-2378a/adminSdkConfig {"projectId":"elementify-2378a","storageBucket":"elementify-2378a.appspot.com"}
+[debug] [2024-02-09T03:08:41.827Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs [none]
+[debug] [2024-02-09T03:08:41.988Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs 200
+[debug] [2024-02-09T03:08:41.989Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs {"configs":[{"name":"projects/elementify-2378a/configs/spotify"}]}
+[debug] [2024-02-09T03:08:41.990Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables [none]
+[debug] [2024-02-09T03:08:42.216Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables 200
+[debug] [2024-02-09T03:08:42.217Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables {"variables":[{"name":"projects/elementify-2378a/configs/spotify/variables/redirect_uri","updateTime":"2024-02-09T02:32:40.249520097Z"},{"name":"projects/elementify-2378a/configs/spotify/variables/client_id","updateTime":"2024-02-09T02:32:39.819684130Z"},{"name":"projects/elementify-2378a/configs/spotify/variables/client_secret","updateTime":"2024-02-09T02:32:39.780686675Z"}]}
+[debug] [2024-02-09T03:08:42.219Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/redirect_uri [none]
+[debug] [2024-02-09T03:08:42.226Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_id [none]
+[debug] [2024-02-09T03:08:42.233Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_secret [none]
+[debug] [2024-02-09T03:08:42.403Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/redirect_uri 200
+[debug] [2024-02-09T03:08:42.404Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/redirect_uri {"name":"projects/elementify-2378a/configs/spotify/variables/redirect_uri","updateTime":"2024-02-09T02:32:40.249520097Z","text":"https://elementify-2378a.web.app/callback"}
+[debug] [2024-02-09T03:08:42.456Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_id 200
+[debug] [2024-02-09T03:08:42.456Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_id {"name":"projects/elementify-2378a/configs/spotify/variables/client_id","updateTime":"2024-02-09T02:32:39.819684130Z","text":"bb8e4bc87a76404db6a9c2e420474ea1"}
+[debug] [2024-02-09T03:08:42.518Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_secret 200
+[debug] [2024-02-09T03:08:42.519Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/elementify-2378a/configs/spotify/variables/client_secret {"name":"projects/elementify-2378a/configs/spotify/variables/client_secret","updateTime":"2024-02-09T02:32:39.780686675Z","text":"69cf708184504f1ca76465d041592e3d"}
+[debug] [2024-02-09T03:08:42.525Z] Validating nodejs source
+[debug] [2024-02-09T03:08:43.552Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.0.0"
+  },
+  "private": true
+}
+[debug] [2024-02-09T03:08:43.552Z] Building nodejs source
+[debug] [2024-02-09T03:08:43.553Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-02-09T03:08:43.565Z] Found firebase-functions binary at '/Users/omerlatif/Desktop/Elementify/functions/node_modules/.bin/firebase-functions'
+[debug] [2024-02-09T03:08:44.037Z] Serving at port 8676
+
+[debug] [2024-02-09T03:08:44.242Z] Got response from /__/functions.yaml {"endpoints":{"exchangeSpotifyCode":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"exchangeSpotifyCode"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged /Users/omerlatif/Desktop/Elementify/functions (44.55 KB) for uploading 
+[debug] [2024-02-09T03:08:44.333Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/elementify-2378a/locations/-/functions [none]
+[debug] [2024-02-09T03:08:44.908Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/elementify-2378a/locations/-/functions 200
+[debug] [2024-02-09T03:08:44.909Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/elementify-2378a/locations/-/functions {"functions":[{"name":"projects/elementify-2378a/locations/us-central1/functions/exchangeSpotifyCode","httpsTrigger":{"url":"https://us-central1-elementify-2378a.cloudfunctions.net/exchangeSpotifyCode","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"exchangeSpotifyCode","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"elementify-2378a@appspot.gserviceaccount.com","updateTime":"2024-02-09T02:40:18.186Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"8f0d4b6a9c39bc6bc232730169cd9d5310677d8a"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-230486170141.us-central1.cloudfunctions.appspot.com/adca3d3a-2997-4017-ae5f-80a9788b36f9.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"elementify-2378a\",\"storageBucket\":\"elementify-2378a.appspot.com\"}","GCLOUD_PROJECT":"elementify-2378a","EVENTARC_CLOUD_EVENT_SOURCE":"projects/elementify-2378a/locations/us-central1/functions/exchangeSpotifyCode"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"4119f38c-de7c-49e1-9805-7c244317dc50","buildName":"projects/841393751186/locations/us-central1/builds/4119f38c-de7c-49e1-9805-7c244317dc50","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}}]}
+[debug] [2024-02-09T03:08:44.912Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/elementify-2378a/locations/-/functions filter=environment%3D%22GEN_2%22
