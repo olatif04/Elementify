@@ -13,6 +13,7 @@ function Home() {
         const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=code&show_dialog=true`;
         window.location.href = spotifyAuthUrl;
     };
+    
     const handleLogout = () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('isLoggedIn');
