@@ -4,6 +4,8 @@ import axios from 'axios';
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [topTracks, setTopTracks] = useState([]);
+  const [topArtists, setTopArtists] = useState([]);
+  const [favoriteGenre, setFavoriteGenre] = useState('');
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -49,27 +51,28 @@ function Home() {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) return;
 
-    // Fetch Top Artists
+    // Fetch Top Artists and Tracks
     try {
-      const artistsResponse = await axios.get('https://api.spotify.com/v1/me/top/artists', {
-        headers: { 'Authorization': `Bearer ${accessToken}` },
-      });
-      setTopArtists(artistsResponse.data.items);
-      console.log("Successfully fetched top artists:", topArtistsResponse.data);
-      calculateFavoriteGenre(artistsResponse.data.items);
-    } catch (error) {
-      console.error("Error fetching top artists:", error);
-    }
+      const [artistsResponse, tracksResponse] = await Promise.all([
+        axios.get('https://api.spotify.com/v1/me/top/artists', {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        axios.get('https://api.spotify.com/v1/me/top/tracks', {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        })
+      ]);
 
-    // Fetch Top Tracks
-    try {
-      const tracksResponse = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-        headers: { 'Authorization': `Bearer ${accessToken}` },
-      });
+      setTopArtists(artistsResponse.data.items);
       setTopTracks(tracksResponse.data.items);
-      console.log("Successfully fetched top tracks:", topTracksResponse.data);
+      console.log("Successfully fetched top tracks:", tracksResponse.data);
+      console.log("Successfully fetched top artists:", artistsResponse.data);
+
+      // Calculate Favorite Genre
+      calculateFavoriteGenre(artistsResponse.data.items);
+
     } catch (error) {
-      console.error("Error fetching top tracks:", error);
+      console.error("Error fetching Spotify data:", error);
+      handleLogout();
     }
   };
 
@@ -83,6 +86,7 @@ function Home() {
 
     const favoriteGenre = Object.keys(genreCount).reduce((a, b) => genreCount[a] > genreCount[b] ? a : b, '');
     setFavoriteGenre(favoriteGenre);
+    console.log("Successfully fetched favorite genre:", favoriteGenre.data);
   };
 
   
@@ -122,17 +126,27 @@ function Home() {
       <header className="header">
         <h1>Elementify</h1>
         {!isLoggedIn && <button className='button' onClick={handleSpotifyLogin}>Log In With Spotify</button>}
-        {isLoggedIn && <>
-          <p className="logged-in-text">Logged In</p>
-          <button onClick={handleLogout}>Log Out</button>
-          <button onClick={fetchUserTopTracks}>Get Top Tracks</button>
-        </>}
-        {isLoggedIn && topTracks.length > 0 && (
-          <ul>
-            {topTracks.map((track) => (
-              <li key={track.id}>{track.name} by {track.artists.map(artist => artist.name).join(", ")}</li>
-            ))}
-          </ul>
+        {isLoggedIn && (
+          <>
+            <p className="logged-in-text">Logged In</p>
+            <button onClick={handleLogout}>Log Out</button>
+            <button onClick={fetchTopArtistsAndTracks}>Refresh Data</button>
+            <div>
+              <h2>Top Tracks</h2>
+              <ul>
+                {topTracks.map(track => (
+                  <li key={track.id}>{track.name} by {track.artists.map(artist => artist.name).join(", ")}</li>
+                ))}
+              </ul>
+              <h2>Top Artists</h2>
+              <ul>
+                {topArtists.map(artist => (
+                  <li key={artist.id}>{artist.name}</li>
+                ))}
+              </ul>
+              <h2>Favorite Genre: {favoriteGenre}</h2>
+            </div>
+          </>
         )}
       </header>
     </div>
