@@ -86,7 +86,7 @@ function Home() {
 
     const favoriteGenre = Object.keys(genreCount).reduce((a, b) => genreCount[a] > genreCount[b] ? a : b, '');
     setFavoriteGenre(favoriteGenre);
-    console.log("Successfully fetched favorite genre:", favoriteGenre.data);
+    console.log("Successfully fetched favorite genre:", favoriteGenre);
   };
 
   
