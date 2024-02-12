@@ -20,6 +20,7 @@ function Home() {
           }
         });
         setIsLoggedIn(true);
+        fetchTopArtistsAndTracks();
       } catch (error) {
         console.error("Error checking auth status:", error);
         handleLogout();
@@ -44,6 +45,48 @@ function Home() {
     window.location.href = '/';
   };
 
+  const fetchTopArtistsAndTracks = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) return;
+
+    // Fetch Top Artists
+    try {
+      const artistsResponse = await axios.get('https://api.spotify.com/v1/me/top/artists', {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+      setTopArtists(artistsResponse.data.items);
+      console.log("Successfully fetched top artists:", topArtistsResponse.data);
+      calculateFavoriteGenre(artistsResponse.data.items);
+    } catch (error) {
+      console.error("Error fetching top artists:", error);
+    }
+
+    // Fetch Top Tracks
+    try {
+      const tracksResponse = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+      setTopTracks(tracksResponse.data.items);
+      console.log("Successfully fetched top tracks:", topTracksResponse.data);
+    } catch (error) {
+      console.error("Error fetching top tracks:", error);
+    }
+  };
+
+  const calculateFavoriteGenre = (artists) => {
+    const genreCount = artists.reduce((count, { genres }) => {
+      genres.forEach(genre => {
+        count[genre] = (count[genre] || 0) + 1;
+      });
+      return count;
+    }, {});
+
+    const favoriteGenre = Object.keys(genreCount).reduce((a, b) => genreCount[a] > genreCount[b] ? a : b, '');
+    setFavoriteGenre(favoriteGenre);
+  };
+
+  
+  /* removed for fetching top artists and tracks
   const fetchUserTopTracks = async () => {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
@@ -72,6 +115,7 @@ function Home() {
       handleLogout();
     }
   };
+  */
 
   return (
     <div className="Home">
