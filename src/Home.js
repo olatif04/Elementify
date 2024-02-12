@@ -87,7 +87,7 @@ function Home() {
       console.log("No access token found. User might not be logged in.");
       return;
     }
-    
+
     const operation = async () => {
       const [artistsResponse, tracksResponse] = await Promise.all([
         axios.get('https://api.spotify.com/v1/me/top/artists', {
@@ -126,6 +126,54 @@ function Home() {
     setFavoriteGenre(favoriteGenre);
     console.log("Successfully fetched favorite genre:", favoriteGenre);
   };
+
+  const fetchMostFollowedPlaylist = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      console.log("No access token found. User might not be logged in.");
+      return;
+    }
+  
+    // Define the operation to fetch playlists as a separate function
+    const fetchPlaylistsOperation = async () => {
+      let mostFollowedPlaylist = null;
+      let highestFollowerCount = 0;
+      let url = 'https://api.spotify.com/v1/me/playlists?limit=50'; // Starting URL, fetching up to 50 playlists at a time
+  
+      do {
+        const response = await axios.get(url, {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        });
+  
+        response.data.items.forEach(playlist => {
+          if (playlist.followers.total > highestFollowerCount) {
+            highestFollowerCount = playlist.followers.total;
+            mostFollowedPlaylist = playlist;
+          }
+        });
+  
+        url = response.data.next; // Prepare URL for the next page, if any
+      } while (url); // Continue fetching pages until there are no more to fetch
+  
+      return mostFollowedPlaylist; // Return the most followed playlist
+    };
+  
+    try {
+      // Use the fetchWithRetry function to attempt fetching playlists with retries
+      const mostFollowedPlaylist = await fetchWithRetry(fetchPlaylistsOperation);
+      if (mostFollowedPlaylist) {
+        console.log("Most followed playlist:", mostFollowedPlaylist);
+        // Here you can set state or perform other actions with the mostFollowedPlaylist
+      } else {
+        console.log("User has no playlists or no followers.");
+      }
+    } catch (error) {
+      console.error("Error fetching playlists after retries:", error);
+      handleLogout();
+    }
+  };
+  
+  
 
   
   /* removed for fetching top artists and tracks
@@ -182,7 +230,13 @@ function Home() {
                   <li key={artist.id}>{artist.name}</li>
                 ))}
               </ul>
-              <h2>Favorite Genre: {favoriteGenre}</h2>
+              <h2>Favorite Genre: </h2>
+              <p>{favoriteGenre}</p>
+              <h2>Most followed playlist</h2>
+              <p>{mostFollowedPlaylist}</p>
+              <h3>Count</h3>
+              <p>{highestFollowerCount}</p>
+
             </div>
           </>
         )}
