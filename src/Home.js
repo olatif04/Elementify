@@ -6,6 +6,9 @@ function Home() {
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
   const [favoriteGenre, setFavoriteGenre] = useState('');
+  const [mostFollowedPlaylist, setMostFollowedPlaylist] = useState(null);
+  const [highestFollowerCount, setHighestFollowerCount] = useState(0);
+
 
   const retryOperation = async (operation, retries = 3, delay = 1000, multiplier = 2) => {
     try {
@@ -136,8 +139,8 @@ function Home() {
   
     // Define the operation to fetch playlists as a separate function
     const fetchPlaylistsOperation = async () => {
-      let mostFollowedPlaylist = null;
-      let highestFollowerCount = 0;
+      let localMostFollowedPlaylist = null;
+      let localHighestFollowerCount = 0;
       let url = 'https://api.spotify.com/v1/me/playlists?limit=50'; // Starting URL, fetching up to 50 playlists at a time
   
       do {
@@ -146,23 +149,25 @@ function Home() {
         });
   
         response.data.items.forEach(playlist => {
-          if (playlist.followers.total > highestFollowerCount) {
-            highestFollowerCount = playlist.followers.total;
-            mostFollowedPlaylist = playlist;
+          if (playlist.followers.total > localHighestFollowerCount) {
+            localHighestFollowerCount = playlist.followers.total;
+            localMostFollowedPlaylist = playlist;
           }
         });
   
         url = response.data.next; // Prepare URL for the next page, if any
       } while (url); // Continue fetching pages until there are no more to fetch
   
-      return mostFollowedPlaylist; // Return the most followed playlist
+      return { localMostFollowedPlaylist, localHighestFollowerCount }; // Return the most followed playlist
     };
   
     try {
       // Use the fetchWithRetry function to attempt fetching playlists with retries
-      const mostFollowedPlaylist = await fetchWithRetry(fetchPlaylistsOperation);
-      if (mostFollowedPlaylist) {
-        console.log("Most followed playlist:", mostFollowedPlaylist);
+      const { localMostFollowedPlaylist, localHighestFollowerCount } = await fetchWithRetry(fetchPlaylistsOperation);
+      if (localMostFollowedPlaylist) {
+        setMostFollowedPlaylist(localMostFollowedPlaylist);
+        setHighestFollowerCount(localHighestFollowerCount);
+        console.log("Most followed playlist:", localMostFollowedPlaylist?.name, "with followers:", localHighestFollowerCount);
         // Here you can set state or perform other actions with the mostFollowedPlaylist
       } else {
         console.log("User has no playlists or no followers.");
