@@ -22,7 +22,7 @@ function Home() {
           }
         });
         setIsLoggedIn(true);
-        fetchTopArtistsAndTracks();
+        //fetchTopArtistsAndTracks();
       } catch (error) {
         console.error("Error checking auth status:", error);
         handleLogout();
