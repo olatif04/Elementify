@@ -150,7 +150,7 @@ function Home() {
         console.log("Fetching page: ", url);
         const response = await axios.get(url, {
           headers: { 'Authorization': `Bearer ${accessToken}` },
-        });
+        }); 
         console.log(`Fetched ${response.data.items.length} playlists.`);
   
         response.data.items.forEach(playlist => {
@@ -189,41 +189,6 @@ function Home() {
       //handleLogout();
     }
   };
-  
-  
-  
-
-  
-  /* removed for fetching top artists and tracks
-  const fetchUserTopTracks = async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.log("No access token found. User might not be logged in.");
-      return;
-    }
-
-    try {
-      const userInfoResponse = await axios.get('https://api.spotify.com/v1/me', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      });
-      console.log(`User info fetched: Email - ${userInfoResponse.data.email}`);
-
-      const topTracksResponse = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      });
-
-      setTopTracks(topTracksResponse.data.items);
-      console.log("Successfully fetched top tracks:", topTracksResponse.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      handleLogout();
-    }
-  };
-  */
 
   return (
     <div className="Home">
