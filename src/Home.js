@@ -71,7 +71,7 @@ function Home() {
     e.preventDefault();
     const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
     const redirect_uri = encodeURIComponent(process.env.REACT_APP_REDIRECT_URI);
-    const scopes = encodeURIComponent('user-read-private user-read-email user-top-read');
+    const scopes = encodeURIComponent('user-read-private user-read-email user-top-read playlist-read-private playlist-read-collaborative');
     const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scopes}&response_type=code&show_dialog=true`;
     window.location.href = spotifyAuthUrl;
   };
