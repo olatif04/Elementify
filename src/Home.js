@@ -180,7 +180,7 @@ function Home() {
       }
     } catch (error) {
       console.error("Error fetching playlists after retries:", error);
-      handleLogout();
+      //handleLogout();
     }
   };
   
