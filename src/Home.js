@@ -111,6 +111,7 @@ function Home() {
       setTopArtists(artistsResponse.data.items);
       setTopTracks(tracksResponse.data.items);
       calculateFavoriteGenre(artistsResponse.data.items);
+      fetchMostFollowedPlaylist();
     } catch (error) {
       console.error("Error fetching data:", error);
       handleLogout();
