@@ -132,6 +132,7 @@ function Home() {
   };
 
   const fetchMostFollowedPlaylist = async () => {
+    console.log("Starting fetchMostFollowedPlaylist...");
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
       console.log("No access token found. User might not be logged in.");
@@ -140,19 +141,23 @@ function Home() {
   
     // Define the operation to fetch playlists as a separate function
     const fetchPlaylistsOperation = async () => {
+      console.log("Fetching playlists...");
       let localMostFollowedPlaylist = null;
       let localHighestFollowerCount = 0;
       let url = 'https://api.spotify.com/v1/me/playlists?limit=50'; // Starting URL, fetching up to 50 playlists at a time
   
       do {
+        console.log("Fetching page: ", url);
         const response = await axios.get(url, {
           headers: { 'Authorization': `Bearer ${accessToken}` },
         });
+        console.log(`Fetched ${response.data.items.length} playlists.`);
   
         response.data.items.forEach(playlist => {
           if (playlist.followers.total > localHighestFollowerCount) {
             localHighestFollowerCount = playlist.followers.total;
             localMostFollowedPlaylist = playlist;
+            console.log("New most followed playlist found:", localMostFollowedPlaylist.name, "with", localHighestFollowerCount, "followers");
           }
         });
   
@@ -168,7 +173,7 @@ function Home() {
       if (localMostFollowedPlaylist) {
         setMostFollowedPlaylist(localMostFollowedPlaylist);
         setHighestFollowerCount(localHighestFollowerCount);
-        console.log("Most followed playlist:", localMostFollowedPlaylist?.name, "with followers:", localHighestFollowerCount);
+        console.log("Most followed playlist after retries:", localMostFollowedPlaylist?.name, "with followers:", localHighestFollowerCount);
         // Here you can set state or perform other actions with the mostFollowedPlaylist
       } else {
         console.log("User has no playlists or no followers.");
@@ -178,6 +183,7 @@ function Home() {
       handleLogout();
     }
   };
+  
   
   
 
