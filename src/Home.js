@@ -154,12 +154,18 @@ function Home() {
         console.log(`Fetched ${response.data.items.length} playlists.`);
   
         response.data.items.forEach(playlist => {
-          if (playlist.followers.total > localHighestFollowerCount) {
-            localHighestFollowerCount = playlist.followers.total;
-            localMostFollowedPlaylist = playlist;
-            console.log("New most followed playlist found:", localMostFollowedPlaylist.name, "with", localHighestFollowerCount, "followers");
+          console.log(playlist); // Log the playlist object to inspect its structure
+          if (playlist && playlist.followers && typeof playlist.followers.total === 'number') {
+            if (playlist.followers.total > localHighestFollowerCount) {
+              localHighestFollowerCount = playlist.followers.total;
+              localMostFollowedPlaylist = playlist;
+              console.log("New most followed playlist found:", playlist.name, "with", playlist.followers.total, "followers");
+            }
+          } else {
+            console.log("Unexpected playlist structure:", playlist);
           }
         });
+        
   
         url = response.data.next; // Prepare URL for the next page, if any
       } while (url); // Continue fetching pages until there are no more to fetch

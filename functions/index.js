@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const axios = require("axios");
 const cors = require("cors")({origin: true});
 
-exports.exchangeSpotifyCode = functions.https.onRequest(async (request, response) => {
+exports.exchangeSpotifyCode = functions.https.onRequest((request, response) => { // doesn't work maybe
   cors(request, response, async () => {
     const {code} = request.body;
     const spotifyConfig = functions.config().spotify;
