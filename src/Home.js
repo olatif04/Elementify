@@ -155,7 +155,7 @@ function Home() {
   
         response.data.items.forEach(playlist => {
           console.log(playlist); // Log the playlist object to inspect its structure
-          if (playlist && playlist.followers && typeof playlist.followers.total === 'number') {
+          if (playlist && playlist.followers /*&& typeof playlist.followers.total === 'number'*/) {
             if (playlist.followers.total > localHighestFollowerCount) {
               localHighestFollowerCount = playlist.followers.total;
               localMostFollowedPlaylist = playlist;
