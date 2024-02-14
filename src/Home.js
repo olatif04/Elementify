@@ -139,56 +139,48 @@ function Home() {
       return;
     }
   
-    // Define the operation to fetch playlists as a separate function
-    const fetchPlaylistsOperation = async () => {
-      console.log("Fetching playlists...");
-      let localMostFollowedPlaylist = null;
-      let localHighestFollowerCount = 0;
-      let url = 'https://api.spotify.com/v1/me/playlists?limit=50'; // Starting URL, fetching up to 50 playlists at a time
+    let localMostFollowedPlaylist = null;
+    let localHighestFollowerCount = 0;
+    let url = 'https://api.spotify.com/v1/me/playlists?limit=50'; // Starting URL
   
-      do {
-        console.log("Fetching page: ", url);
-        const response = await axios.get(url, {
-          headers: { 'Authorization': `Bearer ${accessToken}` },
-        }); 
-        console.log(`Fetched ${response.data.items.length} playlists.`);
+    do {
+      console.log("Fetching page: ", url);
+      const response = await axios.get(url, {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      }); 
+      console.log(`Fetched ${response.data.items.length} playlists.`);
+      
+      for (const playlist of response.data.items) {
+        // Fetch details for each playlist to get the follower count
+        const detailUrl = playlist.href; // URL to fetch playlist details
+        try {
+          const detailResponse = await axios.get(detailUrl, {
+            headers: { 'Authorization': `Bearer ${accessToken}` },
+          });
+          const followersCount = detailResponse.data.followers.total;
+          console.log("Playlist detail fetched:", playlist.name, "with", followersCount, "followers");
   
-        response.data.items.forEach(playlist => {
-          console.log(playlist); // Log the playlist object to inspect its structure
-          if (playlist && playlist.followers /*&& typeof playlist.followers.total === 'number'*/) {
-            if (playlist.followers.total > localHighestFollowerCount) {
-              localHighestFollowerCount = playlist.followers.total;
-              localMostFollowedPlaylist = playlist;
-              console.log("New most followed playlist found:", playlist.name, "with", playlist.followers.total, "followers");
-            }
-          } else {
-            console.log("Unexpected playlist structure:", playlist);
+          if (followersCount > localHighestFollowerCount) {
+            localHighestFollowerCount = followersCount;
+            localMostFollowedPlaylist = detailResponse.data; // Use detailed playlist data
+            console.log("New most followed playlist found:", localMostFollowedPlaylist.name, "with", localHighestFollowerCount, "followers");
           }
-        });
-        
-  
-        url = response.data.next; // Prepare URL for the next page, if any
-      } while (url); // Continue fetching pages until there are no more to fetch
-  
-      return { localMostFollowedPlaylist, localHighestFollowerCount }; // Return the most followed playlist
-    };
-  
-    try {
-      // Use the fetchWithRetry function to attempt fetching playlists with retries
-      const { localMostFollowedPlaylist, localHighestFollowerCount } = await fetchWithRetry(fetchPlaylistsOperation);
-      if (localMostFollowedPlaylist) {
-        setMostFollowedPlaylist(localMostFollowedPlaylist);
-        setHighestFollowerCount(localHighestFollowerCount);
-        console.log("Most followed playlist after retries:", localMostFollowedPlaylist?.name, "with followers:", localHighestFollowerCount);
-        // Here you can set state or perform other actions with the mostFollowedPlaylist
-      } else {
-        console.log("User has no playlists or no followers.");
+        } catch (error) {
+          console.error("Error fetching playlist detail:", playlist.name, error);
+        }
       }
-    } catch (error) {
-      console.error("Error fetching playlists after retries:", error);
-      //handleLogout();
+  
+      url = response.data.next; // Prepare URL for the next page, if any
+    } while (url); // Continue fetching pages until there are no more to fetch
+  
+    if (localMostFollowedPlaylist) {
+      console.log("Most followed playlist:", localMostFollowedPlaylist.name, "with followers:", localHighestFollowerCount);
+      // Here you can update your state or UI with the most followed playlist
+    } else {
+      console.log("User has no playlists or no followers.");
     }
   };
+  
 
   return (
     <div className="Home">
